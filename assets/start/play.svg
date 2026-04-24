@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 158.05092 180.23526"
+   version="1.1"
+   id="svg260"
+   sodipodi:docname="play.svg"
+   width="158.05092"
+   height="180.23526"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview262"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="2.2248869"
+     inkscape:cx="135.96197"
+     inkscape:cy="87.420173"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Layer_1-2"
+     width="767.22998px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs220">
+    <style
+       id="style213">.cls-1{fill:#fff;}.cls-2{fill:url(#linear-gradient);}</style>
+    <linearGradient
+       id="linear-gradient"
+       x1="89.68"
+       y1="151.82001"
+       x2="22.549999"
+       y2="51.119999"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(0.44946453)">
+      <stop
+         offset="0"
+         stop-color="#f9830b"
+         id="stop215" />
+      <stop
+         offset="1"
+         stop-color="#f9b210"
+         id="stop217" />
+    </linearGradient>
+  </defs>
+  <g
+     id="Layer_2"
+     data-name="Layer 2"
+     transform="translate(-0.44894567,-12.435209)">
+    <g
+       id="Layer_1-2"
+       data-name="Layer 1">
+      <path
+         class="cls-1"
+         d="m 145.71,102.57 a 11.21,11.21 0 0 1 -5.48,9.68 L 29.42,178.73 A 11.3,11.3 0 0 1 12.32,169 V 36.09 a 11.25,11.25 0 0 1 17.1,-9.68 l 110.81,66.47 a 11.22,11.22 0 0 1 5.48,9.69 z"
+         id="path254" />
+      <path
+         class="cls-2"
+         d="M 147.00946,82.32 36.219465,15.84 a 23.34,23.34 0 0 0 -23.77,-0.3 A 23.36,23.36 0 0 0 0.44946453,36.09 V 169 a 23.33,23.33 0 0 0 12.00000047,20.55 23.28,23.28 0 0 0 23.79,-0.3 L 147.02946,122.78 a 23.61,23.61 0 0 0 0,-40.5 z"
+         id="path256"
+         style="fill:url(#linear-gradient)" />
+    </g>
+  </g>
+</svg>

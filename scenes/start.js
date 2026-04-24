@@ -3,7 +3,7 @@ class Start extends Phaser.Scene {
         super('Start');
 
         this.LAYOUT_PORTRAIT = {
-            // No image assets
+            
         };
 
         this.LAYOUT_LANDSCAPE = {
