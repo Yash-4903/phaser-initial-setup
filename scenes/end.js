@@ -33,22 +33,22 @@ class End extends Phaser.Scene {
     }
 
     onOrientationChange() {
-        this.reflowForResize({ width: this.scale.width, height: this.scale.height });
-        this.scale.on('resize', this.reflowForResize, this);
+        this._applyLayout();
+        this.scale.off('resize', this._applyLayout, this);
+        this.scale.on('resize', this._applyLayout, this);
     }
 
-    reflowForResize(gameSize = { width: this.scale.width, height: this.scale.height }) {
-        const isLandscape = gameSize.width > gameSize.height;
+    _applyLayout() {
+        const isLandscape = this.scale.width > this.scale.height;
         const layout = isLandscape ? this.LAYOUT_LANDSCAPE : this.LAYOUT_PORTRAIT;
-
         for (const key in layout) {
-            if (this[key] && layout.hasOwnProperty(key)) {
-                const { x, y, scale, alpha, depth, r } = layout[key];
-                this[key].setPosition(x, y).setRotation(r || 0);
-                if (scale) this[key].setScale(scale);
-                if (alpha !== undefined) this[key].setAlpha(alpha);
-                if (depth) this[key].setDepth(depth);
-            }
+            if (!layout.hasOwnProperty(key) || !this[key]) continue;
+            const { x, y, scale, depth } = layout[key];
+            this[key].setPosition(x, y);
+            if (scale !== undefined) this[key].setScale(scale);
+            if (depth !== undefined) this[key].setDepth(depth);
         }
     }
+
+    reflowForResize() { this._applyLayout(); }
 }

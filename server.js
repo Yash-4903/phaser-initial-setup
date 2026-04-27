@@ -37,9 +37,10 @@
                     let fileContent = fs.readFileSync(FILE_TO_UPDATE, 'utf8');
 
                     const regex = new RegExp(
-                        `(this\.${layoutName}\s*=\s*\{)[^]*?(\};)`,
-                        'm'
+                        `this\\.${layoutName}\\s*=\\s*\\{([\\s\\S]*?)\\n\\s*\\};`,
+                        'g'
                     );
+
 
                     if (!regex.test(fileContent)) {
                         res.writeHead(404, { 'Content-Type': 'application/json' });
@@ -65,8 +66,38 @@
             return;
         }
 
-        res.writeHead(404);
-        res.end('Not found');
+        let filePath = req.url === '/' ? 'index.html' : decodeURIComponent(req.url.slice(1));
+        filePath = path.join(__dirname, filePath);
+
+        if (!filePath.startsWith(path.join(__dirname))) {
+            res.writeHead(403);
+            res.end('Forbidden');
+            return;
+        }
+
+        fs.readFile(filePath, (err, data) => {
+            if (err) {
+                res.writeHead(404);
+                res.end('Not found');
+            } else {
+                const ext = path.extname(filePath).toLowerCase();
+                const mimeTypes = {
+                    '.html': 'text/html',
+                    '.js': 'application/javascript',
+                    '.css': 'text/css',
+                    '.json': 'application/json',
+                    '.png': 'image/png',
+                    '.jpg': 'image/jpeg',
+                    '.jpeg': 'image/jpeg',
+                    '.gif': 'image/gif',
+                    '.svg': 'image/svg+xml',
+                    '.ico': 'image/x-icon'
+                };
+                res.setHeader('Content-Type', mimeTypes[ext] || 'application/octet-stream');
+                res.writeHead(200);
+                res.end(data);
+            }
+        });
     });
 
     server.listen(PORT, () => {

@@ -44,9 +44,7 @@ class UIEditor {
         this.keysList.forEach((key) => {
             const obj = scene[key];
             if (!obj) return;
-            obj.setInteractive();
-            scene.input.setDraggable(obj);
-            obj.__editKey = key;
+            this._makeInteractive(scene, obj, key);
         });
  
         this.editorGfx = scene.add.graphics().setDepth(this.overlayDepth);
@@ -215,11 +213,38 @@ class UIEditor {
         this.keysList.forEach((key) => {
             const obj = this.scene[key];
             if (!obj) return;
-            obj.setInteractive();
-            this.scene.input.setDraggable(obj);
-            obj.__editKey = key;
+            this._makeInteractive(this.scene, obj, key);
         });
         this.renderUI();
+    }
+
+    // Registers an object as interactive + draggable with a correct hit area
+    _makeInteractive(scene, obj, key) {
+        if (typeof obj.setInteractive !== 'function') return;
+
+        const type = obj.type;
+
+        if (type === 'Rectangle' || type === 'Zone') {
+            // Shape game objects have no texture — must supply explicit hit area in world units
+            const w = obj.width  || 64;
+            const h = obj.height || 64;
+            const ox = obj.originX ?? 0.5;
+            const oy = obj.originY ?? 0.5;
+            obj.setInteractive(
+                new Phaser.Geom.Rectangle(-w * ox, -h * oy, w, h),
+                Phaser.Geom.Rectangle.Contains
+            );
+        } else if (type === 'Image' || type === 'Sprite') {
+            // setDisplaySize changes scaleX/Y, so Phaser's input system scales the
+            // frame hit area automatically — plain setInteractive() works correctly.
+            obj.setInteractive();
+        } else {
+            // Text and everything else
+            obj.setInteractive();
+        }
+
+        scene.input.setDraggable(obj);
+        obj.__editKey = key;
     }
  
     selectObject(obj) {
@@ -571,6 +596,17 @@ class UIEditor {
         if (!obj || !obj.__editKey) return;
  
         const key = obj.__editKey;
+
+        // Slot row handle — redraw all planks
+        if (key === 'slotRowHandle' && typeof this.scene._redrawSlotRow === 'function') {
+            this.scene._redrawSlotRow();
+        }
+
+        // Counter row handle — reposition all cards/icons/labels
+        if (key === 'counterRowHandle' && typeof this.scene._redrawCounterRow === 'function') {
+            this.scene._redrawCounterRow();
+        }
+
         const overlay = this.scene.cardBackOverlays?.[key];
  
         if (overlay) {
